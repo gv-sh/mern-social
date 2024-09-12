@@ -2,6 +2,7 @@ version: '3.0'
 services:
   app:
     build: .
+    command: npm run development
     ports:
       - "3000:3000"
     environment:
