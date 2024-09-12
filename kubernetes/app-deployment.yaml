@@ -46,11 +46,10 @@ kind: Service
 metadata:
   name: mern-app
 spec:
-  type: NodePort  # Changed from LoadBalancer to NodePort
+  type: LoadBalancer
   selector:
     app: mern-app
   ports:
     - protocol: TCP
       port: 3000
       targetPort: 3000
-      nodePort: 30000
