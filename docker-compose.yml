@@ -24,5 +24,9 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6dd87d4 (wait before mongo)
 volumes:
   mongo-data:

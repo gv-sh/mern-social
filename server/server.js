@@ -19,4 +19,8 @@ app.listen(config.port, (err) => {
     console.log(err)
   }
   console.info('Server started on port %s.', config.port)
+<<<<<<< HEAD
 })
+=======
+})
+>>>>>>> 6dd87d4 (wait before mongo)
