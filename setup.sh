@@ -25,6 +25,16 @@ sudo systemctl restart docker
 # Apply group changes without logout
 newgrp docker
 
+# Generate SSL certificates
+mkdir -p ./ssl
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout ./ssl/nginx.key -out ./ssl/nginx.crt
+
+# Copy ssl folder to /etc/nginx/ssl
+sudo cp -r ./ssl /etc/nginx/ssl
+
+# Copy nginx.conf to /etc/nginx/nginx.conf
+sudo cp nginx.conf /etc/nginx/nginx.conf
+
 # Build using Docker Compose
 docker-compose up --build
 
