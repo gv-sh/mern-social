@@ -92,7 +92,6 @@ To deploy this application using Kubernetes with Minikube:
    ```
    minikube start
    eval $(minikube docker-env)
-   minikube -p minikube docker-env
    docker build -t mern-social:latest .
    openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout tls.key -out tls.crt -subj "/CN=localhost"
    kubectl create secret tls ssl-certs --key tls.key --cert tls.crt
