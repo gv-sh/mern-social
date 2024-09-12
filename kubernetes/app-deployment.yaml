@@ -16,6 +16,8 @@ spec:
       - name: mern-app
         image: mern-social:latest
         imagePullPolicy: Never
+        command: ["npm"]
+        args: ["run", "development"]
         ports:
         - containerPort: 3000
         env:
@@ -24,7 +26,10 @@ spec:
         - name: NODE_ENV
           value: "development"
         - name: JWT_SECRET
-          value: "YOUR_secret_key"
+          valueFrom:
+            secretKeyRef:
+              name: mern-secrets
+              key: jwt-secret
         - name: PORT
           value: "3000"
 ---
@@ -33,10 +38,10 @@ kind: Service
 metadata:
   name: mern-app
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
     app: mern-app
   ports:
     - protocol: TCP
-      port: 3000
+      port: 80
       targetPort: 3000
