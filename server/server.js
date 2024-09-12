@@ -5,13 +5,8 @@ import mongoose from 'mongoose'
 // Connection URL
 mongoose.Promise = global.Promise
 mongoose.connect(config.mongoUri, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true, useFindAndModify: false })
-mongoose.connection.on('error', (err) => {
-  console.error('MongoDB connection error:', err)
+mongoose.connection.on('error', () => {
   throw new Error(`unable to connect to database: ${config.mongoUri}`)
-})
-
-mongoose.connection.once('open', () => {
-  console.log('MongoDB connected successfully')
 })
 
 app.listen(config.port, (err) => {
@@ -19,8 +14,4 @@ app.listen(config.port, (err) => {
     console.log(err)
   }
   console.info('Server started on port %s.', config.port)
-<<<<<<< HEAD
 })
-=======
-})
->>>>>>> 6dd87d4 (wait before mongo)

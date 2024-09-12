@@ -10,8 +10,7 @@ services:
       - JWT_SECRET=YOUR_secret_key
       - PORT=3000
     depends_on:
-      mongo:
-        condition: service_healthy
+      - mongo
   mongo:
     image: mongo:4.2.0
     ports:
@@ -24,9 +23,6 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-<<<<<<< HEAD
-=======
 
->>>>>>> 6dd87d4 (wait before mongo)
 volumes:
   mongo-data:
