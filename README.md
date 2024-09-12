@@ -90,7 +90,7 @@ To deploy this application using Kubernetes with Minikube:
 1. Install Minikube, kubectl, and Docker if you haven't already.
 2. Start Minikube:
    ```
-   minikube start
+   minikube start --extra-config=apiserver.service-node-port-range=80-32767
    eval $(minikube docker-env)
    docker build -t mern-social:latest .
    openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout tls.key -out tls.crt -subj "/CN=localhost"
