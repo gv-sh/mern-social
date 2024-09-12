@@ -67,6 +67,11 @@ To deploy this application using Docker:
 5. Access the application at `http://localhost:3000`.
 
 ```
+chmod +x setup.sh
+./setup.sh
+```
+
+```
 docker container prune
 docker image prune -a
 docker volume prune

@@ -39,6 +39,11 @@ echo "SSL certificates have been added successfully."
 # Build Docker image
 docker build -t mern-social:latest .
 
+# Add permissions 
+sudo groupadd docker
+sudo usermod -aG docker $USER
+groups $USER
+
 echo "Docker image has been built successfully."
 
 # Run Docker Compose
