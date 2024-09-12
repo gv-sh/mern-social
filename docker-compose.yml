@@ -8,6 +8,7 @@ services:
       - MONGODB_URI=mongodb://mongo:27017/mernproject
     depends_on:
       - mongo
+    command: sh -c "until nc -z mongo 27017; do sleep 1; done && npm start"
   mongo:
     image: mongo:4.2.0
     ports:
