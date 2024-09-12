@@ -56,3 +56,12 @@ Things you'll learn in this book:
 If you feel this book is for you, get your [copy](https://www.amazon.com/dp/1839215410) today!
 
 ---
+
+### Docker Deployment
+To deploy this application using Docker:
+
+1. Make sure you have Docker and Docker Compose installed on your system.
+2. Clone this repository.
+3. Navigate to the project directory.
+4. Run `docker-compose up --build` to build and start the containers.
+5. Access the application at `http://localhost:3000`.
