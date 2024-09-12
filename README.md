@@ -73,6 +73,13 @@ docker volume prune
 docker network prune
 ```
 
+```
+sudo apt-get update
+sudo apt-get install -y curl apt-transport-https ca-certificates conntrack
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+sudo install minikube-linux-amd64 /usr/local/bin/minikube
+```
+
 ### Kubernetes Deployment
 To deploy this application using Kubernetes with Minikube:
 
@@ -117,4 +124,8 @@ Note: For production use, replace the self-signed SSL certificates with proper o
 To clean up Kubernetes resources:
 ```
 kubectl delete -f kubernetes
+```
+
+```
+kubectl delete secret ssl-certs
 ```
