@@ -112,3 +112,8 @@ kubectl delete secret ssl-certs
 ```
 kubectl get svc mern-app
 ```
+
+Expose the service to the internet:
+```
+minikube expose deployment nginx --type=NodePort --port=80
+```
