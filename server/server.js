@@ -1,29 +1,22 @@
-import config from './../config/config';
-import app from './express';
-import mongoose from 'mongoose';
+import config from './../config/config'
+import app from './express'
+import mongoose from 'mongoose'
 
-mongoose.Promise = global.Promise;
+// Connection URL
+mongoose.Promise = global.Promise
+mongoose.connect(config.mongoUri, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true, useFindAndModify: false })
+mongoose.connection.on('error', (err) => {
+  console.error('MongoDB connection error:', err)
+  throw new Error(`unable to connect to database: ${config.mongoUri}`)
+})
 
-const connectWithRetry = () => {
-  console.log('MongoDB connection with retry');
-  mongoose.connect(config.mongoUri, {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false
-  }).then(() => {
-    console.log('MongoDB is connected');
-  }).catch(err => {
-    console.log('MongoDB connection unsuccessful, retrying in 5 seconds...', err);
-    setTimeout(connectWithRetry, 5000);
-  });
-};
-
-connectWithRetry();
+mongoose.connection.once('open', () => {
+  console.log('MongoDB connected successfully')
+})
 
 app.listen(config.port, (err) => {
   if (err) {
-    console.log(err);
+    console.log(err)
   }
-  console.info('Server started on port %s.', config.port);
-});
+  console.info('Server started on port %s.', config.port)
+})

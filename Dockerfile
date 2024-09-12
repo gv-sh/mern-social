@@ -13,10 +13,13 @@ RUN npm install
 # Copy the rest of the application code
 COPY . .
 
+# Install wait-for-it
+RUN apt-get update && apt-get install -y wait-for-it
+
 # Expose the port the app runs on
 EXPOSE 3000
 
-# Build the application
-RUN npm run development
+# Command to run the application
+CMD ["sh", "-c", "wait-for-it mongo:27017 -t 60 -- npm run development"]
 
 
