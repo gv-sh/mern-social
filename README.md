@@ -65,3 +65,56 @@ To deploy this application using Docker:
 3. Navigate to the project directory.
 4. Run `docker-compose up --build` to build and start the containers.
 5. Access the application at `http://localhost:3000`.
+
+```
+docker container prune
+docker image prune -a
+docker volume prune
+docker network prune
+```
+
+### Kubernetes Deployment
+To deploy this application using Kubernetes with Minikube:
+
+1. Install Minikube, kubectl, and Docker if you haven't already.
+2. Start Minikube:
+   ```
+   minikube start
+   ```
+3. Enable the Minikube Docker daemon:
+   ```
+   eval $(minikube docker-env)
+   ```
+4. Build the Docker image for the MERN app:
+   ```
+   docker build -t mern-social:latest .
+   ```
+5. Generate SSL certificates for Nginx:
+   ```
+   openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout tls.key -out tls.crt -subj "/CN=localhost"
+   kubectl create secret tls ssl-certs --key tls.key --cert tls.crt
+   ```
+6. Apply the Kubernetes manifests:
+   ```
+   kubectl apply -f kubernetes/
+   ```
+7. Wait for all pods to be ready:
+   ```
+   kubectl get pods -w
+   ```
+8. Access the application:
+   ```
+   minikube service nginx
+   ```
+   This will open the HTTPS URL of your application in your default browser.
+9. To access Mongo Express:
+   ```
+   minikube service mongo-express
+   ```
+
+Note: For production use, replace the self-signed SSL certificates with proper ones and update the Nginx configuration accordingly.
+
+To clean up Kubernetes resources:
+```
+kubectl delete -f kubernetes
+```
