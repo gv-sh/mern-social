@@ -108,3 +108,7 @@ To clean up Kubernetes resources:
 kubectl delete -f kubernetes
 kubectl delete secret ssl-certs
 ```
+
+```
+kubectl get svc mern-app
+```
