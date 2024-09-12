@@ -74,6 +74,10 @@ docker network prune
 ```
 
 ```
+docker build -t mern-social:latest .
+```
+
+```
 sudo apt-get update
 sudo apt-get install -y curl apt-transport-https ca-certificates conntrack
 curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
@@ -87,35 +91,14 @@ To deploy this application using Kubernetes with Minikube:
 2. Start Minikube:
    ```
    minikube start
-   ```
-3. Enable the Minikube Docker daemon:
-   ```
    eval $(minikube docker-env)
-   ```
-4. Build the Docker image for the MERN app:
-   ```
+   minikube -p minikube docker-env
    docker build -t mern-social:latest .
-   ```
-5. Generate SSL certificates for Nginx:
-   ```
    openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout tls.key -out tls.crt -subj "/CN=localhost"
    kubectl create secret tls ssl-certs --key tls.key --cert tls.crt
-   ```
-6. Apply the Kubernetes manifests:
-   ```
    kubectl apply -f kubernetes/
-   ```
-7. Wait for all pods to be ready:
-   ```
    kubectl get pods -w
-   ```
-8. Access the application:
-   ```
    minikube service nginx
-   ```
-   This will open the HTTPS URL of your application in your default browser.
-9. To access Mongo Express:
-   ```
    minikube service mongo-express
    ```
 
@@ -124,8 +107,5 @@ Note: For production use, replace the self-signed SSL certificates with proper o
 To clean up Kubernetes resources:
 ```
 kubectl delete -f kubernetes
-```
-
-```
 kubectl delete secret ssl-certs
 ```
