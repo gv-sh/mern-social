@@ -19,32 +19,14 @@ sudo apt-get install -y docker-ce docker-ce-cli containerd.io
 # Add current user to docker group
 sudo usermod -aG docker $USER
 
-# Install Docker Compose
-sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
+# Restart Docker service
+sudo systemctl restart docker
 
-# Verify installations
-docker --version
-docker-compose --version
+# Apply group changes without logout
+newgrp docker
 
-echo "Docker and Docker Compose have been installed successfully."
-echo "Please log out and log back in for group changes to take effect."
-
-# Add SSL certificates
-sudo mkdir -p /etc/nginx/ssl
-sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/nginx.key -out /etc/nginx/ssl/nginx.crt
-
-echo "SSL certificates have been added successfully."
-
-# Build Docker image
-docker build -t mern-social:latest .
-
-# Add permissions 
-sudo groupadd docker
-sudo usermod -aG docker $USER
-groups $USER
+# Build using Docker Compose
+docker-compose up --build
 
 echo "Docker image has been built successfully."
 
-# Run Docker Compose
-docker-compose up -d
