@@ -11,6 +11,9 @@ services:
       - PORT=3000
     depends_on:
       - mongo
+    networks:
+      - mern-network
+
   mongo:
     image: mongo:4.2.0
     ports:
@@ -18,11 +21,12 @@ services:
     volumes:
       - mongo-data:/data/db
     command: mongod --bind_ip_all
-    healthcheck:
-      test: ["CMD", "mongo", "--eval", "db.adminCommand('ping')"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+    networks:
+      - mern-network
+
+networks:
+  mern-network:
+    driver: bridge
 
 volumes:
   mongo-data:
